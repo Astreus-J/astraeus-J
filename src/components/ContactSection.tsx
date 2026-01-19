@@ -45,9 +45,9 @@ export function ContactSection() {
   };
 
   const contactInfo = [
-    { icon: Mail, label: "Email", value: "contato@astraeus.dev" },
-    { icon: Phone, label: "Telefone", value: "+55 (11) 99999-9999" },
-    { icon: MapPin, label: "Localização", value: "São Paulo, Brasil" },
+    { icon: Mail, label: "Email", value: "astreusgame@gmail.com" },
+    { icon: Phone, label: "Telefone", value: "+55 (86) 99436-9763" },
+    { icon: MapPin, label: "Localização", value: "Piauí, Brasil" },
   ];
 
   return (
