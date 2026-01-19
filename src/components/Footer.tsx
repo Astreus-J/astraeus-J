@@ -3,10 +3,10 @@ import { Github, Linkedin, Instagram, Twitter } from "lucide-react";
 import logo from "@/assets/logo-astraeus.jpeg";
 
 const socialLinks = [
-  { icon: Github, href: "#", label: "GitHub" },
-  { icon: Linkedin, href: "#", label: "LinkedIn" },
-  { icon: Instagram, href: "#", label: "Instagram" },
-  { icon: Twitter, href: "#", label: "Twitter" },
+  { icon: Github, href: "https://github.com/orgs/Astreus-J/", label: "GitHub" },
+  { icon: Linkedin, href: "https://www.linkedin.com/company/astreus-j/?viewAsMember=true", label: "LinkedIn" },
+  { icon: Instagram, href: "https://www.instagram.com/astreus_dev/", label: "Instagram" },
+  { icon: Twitter, href: "https://x.com/Astreus_J", label: "Twitter" },
 ];
 
 const footerLinks = [
