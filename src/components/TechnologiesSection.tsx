@@ -11,8 +11,8 @@ const technologies = {
   backend: [
     { name: "Node.js", color: "hsl(120, 33%, 45%)" },
     { name: "Python", color: "hsl(207, 51%, 44%)" },
+    { name: "Django", color: "hsl(150, 50%, 35%)" },
     { name: "FastAPI", color: "hsl(172, 66%, 50%)" },
-    { name: "Express", color: "hsl(0, 0%, 30%)" },
   ],
   database: [
     { name: "PostgreSQL", color: "hsl(210, 55%, 45%)" },
