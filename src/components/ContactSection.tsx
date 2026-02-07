@@ -180,7 +180,7 @@ export function ContactSection() {
   };
 
   const contactInfo = [
-    { icon: Mail, label: "Email", value: "astreusgame@gmail.com" },
+    { icon: Mail, label: "Email", value: "astreusdev.tech@gmail.com" },
     { icon: Phone, label: "Telefone", value: "+55 (86) 99436-9763" },
     { icon: MapPin, label: "Localização", value: "Piauí, Brasil" },
   ];
