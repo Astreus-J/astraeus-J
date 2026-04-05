@@ -122,12 +122,11 @@ export function ContactSection() {
 
       // Prepara os dados do template
       const templateParams = {
-        from_name: formData.name,
-        from_email: formData.email,
-        phone: formData.phone || 'Não informado',
-        subject: formData.subject,
-        message: formData.message,
-        to_name: 'Astreus',
+        nome: formData.name,
+        email: formData.email,
+        telefone: formData.phone || 'Não informado',
+        assunto: formData.subject,
+        mensagem: formData.message,
       };
 
       // Envia email
