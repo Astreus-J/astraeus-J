@@ -27,7 +27,7 @@ const EMAILJS_CONFIG = {
 
 // Prevenção de spam - limita envios
 const SPAM_PREVENTION = {
-  MAX_ATTEMPTS: 3, // Máximo de tentativas
+  MAX_ATTEMPTS: 5, // Máximo de tentativas
   TIME_WINDOW: 3600000, // 1 hora em milissegundos
 };
 
