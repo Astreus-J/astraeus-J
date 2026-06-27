@@ -1,37 +1,170 @@
 import { motion, useInView } from "framer-motion";
-import { useRef } from "react";
-import { ExternalLink, Code2 } from "lucide-react";
+import { useRef, useEffect, useState } from "react";
+import { ExternalLink, Code2, Clock } from "lucide-react";
 
-const projects = [
+type Project = {
+  title: string;
+  desc: string;
+  stack: string[];
+  accent: string;
+  link?: string;
+  inDev?: boolean;
+  image?: string;
+  livePreview?: boolean;
+};
+
+const IFRAME_WIDTH = 1280;
+const IFRAME_HEIGHT = 800;
+
+function LivePreview({ url, title }: { url: string; title: string }) {
+  const containerRef = useRef<HTMLDivElement>(null);
+  const [scale, setScale] = useState(0.375);
+  const [loaded, setLoaded] = useState(false);
+
+  useEffect(() => {
+    const el = containerRef.current;
+    if (!el) return;
+    const observer = new ResizeObserver(([entry]) => {
+      setScale(entry.contentRect.width / IFRAME_WIDTH);
+    });
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, []);
+
+  return (
+    <div ref={containerRef} className="absolute inset-0 overflow-hidden bg-white">
+      {!loaded && (
+        <div className="absolute inset-0 flex items-center justify-center bg-muted animate-pulse">
+          <div className="w-8 h-8 rounded-full border-2 border-primary border-t-transparent animate-spin" />
+        </div>
+      )}
+      <div
+        style={{
+          width: IFRAME_WIDTH,
+          height: IFRAME_HEIGHT,
+          transform: `scale(${scale})`,
+          transformOrigin: "top left",
+          pointerEvents: "none",
+        }}
+      >
+        <iframe
+          src={url}
+          title={title}
+          width={IFRAME_WIDTH}
+          height={IFRAME_HEIGHT}
+          scrolling="no"
+          onLoad={() => setLoaded(true)}
+          style={{ border: "none", display: "block" }}
+        />
+      </div>
+    </div>
+  );
+}
+
+const projects: Project[] = [
   {
-    title: "E-commerce Platform",
-    category: "Sistema Web",
-    description: "Plataforma completa de e-commerce com painel administrativo, gestão de produtos e integração de pagamentos.",
-    tags: ["React", "Node.js", "PostgreSQL"],
-    gradient: "from-primary to-orange-400",
+    title: "JuriSense",
+    desc: "Sistema de automação de processos judiciais. Em desenvolvimento com equipe de 4 pessoas.",
+    stack: ["FastAPI", "Redis", "RabbitMQ", "Docker", "PostgreSQL", "React", "GCP", "MongoDB"],
+    link: "https://jurisense-frontend-36pu.onrender.com/",
+    accent: "from-cyan-500/30 to-blue-500/20",
+    livePreview: true,
+    inDev: true,
   },
   {
-    title: "Dashboard Analytics",
-    category: "Dashboard",
-    description: "Dashboard de análise de dados em tempo real com gráficos interativos e relatórios automatizados.",
-    tags: ["Next.js", "Python", "Redis"],
-    gradient: "from-secondary to-blue-400",
-  },
-  {
-    title: "API de Integração",
-    category: "API REST",
-    description: "API robusta para integração entre sistemas legados e plataformas modernas de gestão.",
-    tags: ["FastAPI", "PostgreSQL", "Docker"],
-    gradient: "from-emerald-600 to-teal-400",
-  },
-  {
-    title: "Automação RPA",
-    category: "Automação",
-    description: "Sistema de automação de processos internos com bots inteligentes e workflows personalizados.",
-    tags: ["Python", "Node.js", "AWS"],
-    gradient: "from-violet-600 to-purple-400",
+    title: "ZettaData",
+    desc: "Plataforma de Business Intelligence que transforma dados fiscais de NF-e em inteligência estratégica acionável para pequenos e médios varejistas.",
+    stack: ["Java", "Spring Boot", "React", "PostgreSQL", "Redis", "Kafka", "Docker"],
+    accent: "from-orange-500/30 to-amber-500/20",
+    inDev: true,
   },
 ];
+
+function ProjectCard({
+  project,
+  index,
+  isInView,
+}: {
+  project: Project;
+  index: number;
+  isInView: boolean;
+}) {
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 30 }}
+      animate={isInView ? { opacity: 1, y: 0 } : {}}
+      transition={{ duration: 0.5, delay: index * 0.15 }}
+      className="group bg-card rounded-2xl overflow-hidden shadow-lg border border-border hover-lift h-full"
+    >
+      {/* Thumbnail */}
+      <div className={`h-52 bg-gradient-to-br ${project.accent} relative overflow-hidden`}>
+        {project.livePreview && project.link ? (
+          <LivePreview url={project.link} title={project.title} />
+        ) : project.image ? (
+          <img
+            src={project.image}
+            alt={`Preview ${project.title}`}
+            className="absolute inset-0 w-full h-full object-cover object-top"
+          />
+        ) : (
+          <>
+            <div className="absolute inset-0 bg-black/20" />
+            <div className="absolute inset-0 flex items-center justify-center">
+              <Code2 className="w-16 h-16 text-white/40" />
+            </div>
+          </>
+        )}
+
+        {/* Badge de status */}
+        {project.inDev ? (
+          <div className="absolute top-4 right-4 z-10 flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-black/60 backdrop-blur-sm border border-white/10 text-white text-xs font-medium">
+            <Clock className="w-3.5 h-3.5 text-orange-400" />
+            Em desenvolvimento
+          </div>
+        ) : (
+          <div className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center z-10">
+            <ExternalLink className="w-8 h-8 text-white" />
+          </div>
+        )}
+
+        {/* Overlay de hover no live preview para indicar que é clicável */}
+        {project.livePreview && (
+          <div className="absolute inset-0 bg-black/0 group-hover:bg-black/30 transition-colors duration-300 flex items-end justify-center pb-4 z-10 opacity-0 group-hover:opacity-100">
+            <span className="flex items-center gap-1.5 text-white text-xs font-medium">
+              <ExternalLink className="w-3.5 h-3.5" />
+              Abrir site
+            </span>
+          </div>
+        )}
+      </div>
+
+      {/* Content */}
+      <div className="p-6">
+        <div className="flex items-start justify-between gap-3 mb-3">
+          <h3 className="font-display font-semibold text-xl leading-tight">{project.title}</h3>
+          {project.inDev && (
+            <span className="shrink-0 text-xs font-medium text-muted-foreground bg-muted px-2.5 py-1 rounded-full">
+              Astreus Dev
+            </span>
+          )}
+        </div>
+
+        <p className="text-muted-foreground mb-5 text-sm leading-relaxed">{project.desc}</p>
+
+        <div className="flex flex-wrap gap-2">
+          {project.stack.map((tech) => (
+            <span
+              key={tech}
+              className="px-3 py-1 text-xs font-medium bg-muted rounded-full text-muted-foreground"
+            >
+              {tech}
+            </span>
+          ))}
+        </div>
+      </div>
+    </motion.div>
+  );
+}
 
 export function PortfolioSection() {
   const ref = useRef(null);
@@ -61,49 +194,24 @@ export function PortfolioSection() {
         </motion.div>
 
         {/* Projects grid */}
-        <div className="grid md:grid-cols-2 gap-8">
-          {projects.map((project, index) => (
-            <motion.div
-              key={project.title}
-              initial={{ opacity: 0, y: 30 }}
-              animate={isInView ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.5, delay: index * 0.1 }}
-              className="group bg-card rounded-2xl overflow-hidden shadow-lg border border-border hover-lift"
-            >
-              {/* Project image placeholder */}
-              <div className={`h-48 bg-gradient-to-br ${project.gradient} relative overflow-hidden`}>
-                <div className="absolute inset-0 bg-black/20" />
-                <div className="absolute inset-0 flex items-center justify-center">
-                  <Code2 className="w-16 h-16 text-white/50" />
-                </div>
-                {/* Hover overlay */}
-                <div className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
-                  <ExternalLink className="w-8 h-8 text-white" />
-                </div>
+        <div className="grid md:grid-cols-2 gap-8 max-w-5xl mx-auto">
+          {projects.map((project, index) =>
+            project.link ? (
+              <a
+                key={project.title}
+                href={project.link}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="block"
+              >
+                <ProjectCard project={project} index={index} isInView={isInView} />
+              </a>
+            ) : (
+              <div key={project.title}>
+                <ProjectCard project={project} index={index} isInView={isInView} />
               </div>
-
-              {/* Content */}
-              <div className="p-6">
-                <span className="text-xs font-medium text-primary uppercase tracking-wide">
-                  {project.category}
-                </span>
-                <h3 className="font-display font-semibold text-xl mt-2 mb-3">{project.title}</h3>
-                <p className="text-muted-foreground mb-4">{project.description}</p>
-                
-                {/* Tags */}
-                <div className="flex flex-wrap gap-2">
-                  {project.tags.map((tag) => (
-                    <span
-                      key={tag}
-                      className="px-3 py-1 text-xs font-medium bg-muted rounded-full text-muted-foreground"
-                    >
-                      {tag}
-                    </span>
-                  ))}
-                </div>
-              </div>
-            </motion.div>
-          ))}
+            )
+          )}
         </div>
       </div>
     </section>
