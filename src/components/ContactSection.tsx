@@ -1,6 +1,5 @@
 import { useRef, useState, type FormEvent } from "react";
 import { Loader2 } from "lucide-react";
-import { MarkWatermark } from "@/components/MarkWatermark";
 import { SectionHeader } from "@/components/SectionHeader";
 import { CONTACT, SITE } from "@/content/site";
 import { useContactForm, type ContactFormData } from "@/hooks/use-contact-form";
@@ -55,7 +54,7 @@ function Field({
     <div>
       <label htmlFor={id} className="text-sm font-medium text-white">
         {label}
-        {optional && <span className="ml-2 text-xs font-normal text-white/50">Optional</span>}
+        {optional && <span className="ml-2 text-xs font-normal text-white/60">Optional</span>}
       </label>
       {children}
       {error && (
@@ -99,7 +98,7 @@ export function ContactSection() {
     setStatus({ kind: "sending" });
     try {
       const { default: emailjs } = await import("@emailjs/browser");
-      const { name, company, email, projectType, message } = formData;
+      const { name, company, email, need, stage, message } = formData;
       await emailjs.send(
         EMAILJS_CONFIG.SERVICE_ID,
         EMAILJS_CONFIG.TEMPLATE_ID,
@@ -107,8 +106,8 @@ export function ContactSection() {
           nome: name,
           email,
           telefone: "Not provided",
-          assunto: `${projectType}${company ? ` — ${company}` : ""}`,
-          mensagem: `${message}\n\nCompany: ${company || "Not provided"}\nProject type: ${projectType}`,
+          assunto: `${need}${company ? ` — ${company}` : ""}`,
+          mensagem: `${message}\n\nCompany: ${company || "Not provided"}\nNeed: ${need}\nStage: ${stage || "Not provided"}`,
         },
         { publicKey: EMAILJS_CONFIG.PUBLIC_KEY },
       );
@@ -121,42 +120,51 @@ export function ContactSection() {
   };
 
   return (
-    <section id="contact" aria-labelledby="contact-title" className="relative overflow-hidden bg-graphite py-20 text-white sm:py-28">
-      <MarkWatermark className="-bottom-24 -right-24 h-[34rem] w-[34rem] sm:h-[44rem] sm:w-[44rem]" />
-      <div className="container relative grid gap-14 lg:grid-cols-12 lg:gap-16">
+    <section id="contact" aria-labelledby="contact-title" className="section">
+      <div className="container grid gap-12 lg:grid-cols-12 lg:gap-16">
         <div className="lg:col-span-5">
-          <SectionHeader index="06" eyebrow={CONTACT.eyebrow} title={CONTACT.title} lede={CONTACT.lede} />
-          <dl className="reveal mt-10 space-y-5 border-t border-white/10 pt-6 text-sm">
+          <SectionHeader id="contact-title" title={CONTACT.title} lede={CONTACT.lede} />
+          <dl className="mt-10 space-y-5 border-t border-white/10 pt-6 text-sm">
             <div>
-              <dt className="text-sm text-white/50">Email</dt>
+              <dt className="text-sm text-white/60">Email</dt>
               <dd className="mt-1">
-                <a href={`mailto:${SITE.email}`} className="text-base text-white underline-offset-4 hover:underline">
+                <a href={`mailto:${SITE.email}`} className="inline-block py-1.5 text-base text-white underline-offset-4 hover:underline">
                   {SITE.email}
                 </a>
               </dd>
             </div>
             <div>
-              <dt className="text-sm text-white/50">Based in</dt>
+              <dt className="text-sm text-white/60">Based in</dt>
               <dd className="mt-1 text-base text-white">{SITE.location}</dd>
             </div>
           </dl>
         </div>
 
-        <form ref={formRef} onSubmit={onSubmit} noValidate className="reveal lg:col-span-7">
+        <form ref={formRef} onSubmit={onSubmit} noValidate className="lg:col-span-7">
           <div className="grid gap-5 sm:grid-cols-2">
             <Field id="name" label="Name" error={errors.name}>
-              <input type="text" autoComplete="name" maxLength={100} {...bind("name")} />
+              <input type="text" autoComplete="name" maxLength={100} required {...bind("name")} />
+            </Field>
+            <Field id="email" label="Email" error={errors.email}>
+              <input type="email" autoComplete="email" maxLength={255} required {...bind("email")} />
             </Field>
             <Field id="company" label="Company" optional>
               <input type="text" autoComplete="organization" maxLength={100} {...bind("company")} />
             </Field>
-            <Field id="email" label="Email" error={errors.email}>
-              <input type="email" autoComplete="email" maxLength={255} {...bind("email")} />
-            </Field>
-            <Field id="projectType" label="Project type" error={errors.projectType}>
-              <select {...bind("projectType")} className={cn(fieldClass, "appearance-auto [&>option]:bg-graphite [&>option]:text-white")}>
+            <Field id="need" label="What do you need?" error={errors.need}>
+              <select required {...bind("need")} className={cn(fieldClass, "appearance-auto")}>
                 <option value="">Select…</option>
-                {CONTACT.projectTypes.map((t) => (
+                {CONTACT.needs.map((t) => (
+                  <option key={t} value={t}>
+                    {t}
+                  </option>
+                ))}
+              </select>
+            </Field>
+            <Field id="stage" label="Project stage" optional>
+              <select {...bind("stage")} className={cn(fieldClass, "appearance-auto")}>
+                <option value="">Select…</option>
+                {CONTACT.stages.map((t) => (
                   <option key={t} value={t}>
                     {t}
                   </option>
@@ -165,8 +173,8 @@ export function ContactSection() {
             </Field>
           </div>
           <div className="mt-5">
-            <Field id="message" label="Project description" error={errors.message}>
-              <textarea rows={6} maxLength={1000} {...bind("message")} className={cn(fieldClass, "resize-y")} />
+            <Field id="message" label="Message" error={errors.message}>
+              <textarea rows={6} maxLength={1000} required {...bind("message")} className={cn(fieldClass, "resize-y")} />
             </Field>
           </div>
 

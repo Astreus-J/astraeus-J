@@ -5,16 +5,16 @@ import { HERO } from "@/content/site";
 
 export function HeroSection() {
   return (
-    <section id="top" aria-labelledby="hero-title" className="relative overflow-hidden pb-20 pt-28 sm:pb-28 sm:pt-40">
+    <section id="top" aria-labelledby="hero-title" className="pt-28 sm:pt-36">
       <div className="container">
-        <div className="grid items-center gap-14 lg:grid-cols-12 lg:gap-8">
+        <div className="grid items-center gap-12 lg:grid-cols-12 lg:gap-8">
           <div className="lg:col-span-7">
-            <p className="text-sm text-white/60">{HERO.eyebrow}</p>
-            <h1 id="hero-title" className="mt-5 max-w-[14ch] text-[2.75rem] font-semibold leading-[1.02] text-white sm:text-6xl lg:text-[4.25rem]">
+            <h1 id="hero-title" className="max-w-[15ch] text-[2.5rem] font-semibold leading-[1.05] text-white sm:text-5xl lg:text-[3.75rem]">
               {HERO.title}
             </h1>
-            <p className="mt-7 max-w-xl text-base leading-relaxed text-white/70 sm:text-lg">{HERO.lede}</p>
-            <div className="mt-10 flex flex-col gap-3 sm:flex-row">
+            <p className="mt-6 max-w-xl text-base leading-relaxed text-white/75 sm:text-lg">{HERO.lede}</p>
+            <p className="mt-3 max-w-xl text-base leading-relaxed text-white/60">{HERO.audience}</p>
+            <div className="mt-9 flex flex-col gap-3 sm:flex-row">
               <ButtonLink href={HERO.primary.href}>
                 {HERO.primary.label}
                 <ArrowRight className="h-4 w-4" aria-hidden />
@@ -25,10 +25,21 @@ export function HeroSection() {
             </div>
           </div>
 
-          <div className="mx-auto w-full max-w-[520px] px-0 sm:px-6 lg:col-span-5 lg:max-w-none lg:px-4">
+          <div className="mx-auto w-full max-w-[460px] px-0 sm:px-6 lg:col-span-5 lg:max-w-none lg:px-4">
             <ConstellationMap />
           </div>
         </div>
+
+        <ul
+          aria-label="Capabilities"
+          className="mt-16 flex flex-wrap gap-x-6 gap-y-2 border-t border-border py-6 text-sm text-white/75 lg:mt-20"
+        >
+          {HERO.capabilities.map((c) => (
+            <li key={c}>
+              {c}
+            </li>
+          ))}
+        </ul>
       </div>
     </section>
   );

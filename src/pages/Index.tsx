@@ -19,10 +19,10 @@ const Index = () => {
       <main id="main">
         <HeroSection />
         <ServicesSection />
-        <ExpertiseSection />
         <WorkSection />
-        <CompanySection />
+        <ExpertiseSection />
         <ProcessSection />
+        <CompanySection />
         <ContactSection />
       </main>
       <Footer />

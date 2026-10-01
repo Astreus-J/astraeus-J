@@ -4,7 +4,7 @@
 
 @layer base {
   :root {
-    /* Astraeus brand: blue sampled from the logo, orange from the existing identity */
+    /* Astreus brand: blue sampled from the logo, orange from the existing identity */
     --brand-blue: 219 100% 26%;
     --brand-blue-light: 218 100% 72%;
     --brand-orange: 25 100% 50%;
@@ -17,36 +17,12 @@
     --graphite-soft: 224 18% 15%;
     --paper: 225 22% 6%;
 
-    /* Semantic tokens (shadcn-compatible) */
+    /* Semantic tokens */
     --background: var(--paper);
     --foreground: 0 0% 96%;
-    --card: var(--graphite);
-    --card-foreground: 0 0% 96%;
-    --popover: var(--graphite);
-    --popover-foreground: 0 0% 96%;
-    --primary: var(--brand-orange);
-    --primary-foreground: var(--ink);
-    --secondary: var(--graphite);
-    --secondary-foreground: 0 0% 100%;
-    --muted: 224 18% 15%;
-    --muted-foreground: 220 10% 68%;
-    --accent: 224 18% 15%;
-    --accent-foreground: 0 0% 100%;
-    --destructive: 0 72% 40%;
-    --destructive-foreground: 0 0% 100%;
     --border: 224 12% 20%;
     --input: 224 12% 28%;
     --ring: var(--brand-orange);
-    --radius: 0.125rem;
-
-    --sidebar-background: 0 0% 98%;
-    --sidebar-foreground: 240 5.3% 26.1%;
-    --sidebar-primary: 240 5.9% 10%;
-    --sidebar-primary-foreground: 0 0% 98%;
-    --sidebar-accent: 240 4.8% 95.9%;
-    --sidebar-accent-foreground: 240 5.9% 10%;
-    --sidebar-border: 220 13% 91%;
-    --sidebar-ring: var(--brand-blue);
   }
 
   html {
@@ -108,11 +84,12 @@
   }
 
   /* Small connected node used as a bullet / marker */
-  .node {
-    @apply relative inline-block h-2 w-2 rounded-full border border-current;
+  /* Consistent vertical rhythm */
+  .section {
+    @apply py-20 lg:py-28;
   }
-  .node-fill {
-    @apply bg-current;
+  .section-body {
+    @apply mt-12 lg:mt-14;
   }
 }
 

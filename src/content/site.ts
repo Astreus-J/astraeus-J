@@ -1,11 +1,10 @@
 /**
- * Single source of truth for all Astraeus website copy and data.
+ * Single source of truth for all Astreus website copy and data.
  * Only facts that exist in the repository or the previous site are used here.
  */
 
 export const SITE = {
-  name: "Astraeus",
-  url: "https://astraeus-j.vercel.app",
+  name: "Astreus",
   email: "astreusdev.tech@gmail.com",
   location: "Piauí, Brazil",
   social: [
@@ -16,23 +15,32 @@ export const SITE = {
 
 export const NAV = [
   { label: "Services", href: "#services" },
-  { label: "Expertise", href: "#expertise" },
   { label: "Work", href: "#work" },
+  { label: "Expertise", href: "#expertise" },
   { label: "Company", href: "#company" },
   { label: "Contact", href: "#contact" },
 ] as const;
 
 export const HERO = {
-  eyebrow: "Software engineering company",
   title: "Software engineered for real businesses.",
-  lede: "Astraeus designs and develops digital products, platforms and infrastructure — from web applications and backend systems to automation and blockchain solutions.",
+  lede: "Astreus is a software engineering company. We design and build digital products, platforms and the infrastructure behind them, from product architecture to production.",
+  audience: "For companies, startups and organizations that need technology built properly.",
   primary: { label: "Start a project", href: "#contact" },
   secondary: { label: "View our work", href: "#work" },
+  capabilities: [
+    "Custom software",
+    "SaaS platforms",
+    "Web & mobile apps",
+    "APIs & integrations",
+    "Automation & AI",
+    "Cloud infrastructure",
+    "Blockchain",
+  ],
 } as const;
 
 /**
  * Stages of the Constellation System. Node positions follow the geometry of the
- * Astraeus mark: base-left, left edge, apex, right edge, base-right.
+ * Astreus mark: base-left, left edge, apex, right edge, base-right.
  */
 export const STAGES = [
   { id: "N1", label: "Business problem", x: 14, y: 80, align: "below", text: "We start from the operation: who uses the system, what it must do and what constrains it." },
@@ -53,75 +61,102 @@ export const STAGE_EDGES: ReadonlyArray<readonly [string, string, number?]> = [
 ];
 
 export const SERVICES = {
-  eyebrow: "Services",
   title: "What we build",
-  lede: "Four engineering disciplines that work as one system: the product, the backend behind it, the automation around it, and the infrastructure it runs on.",
+  lede: "One team across the whole path, from product architecture to production.",
   items: [
     {
       id: "S1",
       title: "Product Engineering",
-      summary: "End-to-end delivery of software products, from first release to long-term evolution.",
-      points: ["SaaS platforms", "Web applications", "MVP development", "Internal platforms"],
+      summary: "Software products, from the first release to the platform they grow into.",
+      detail: "SaaS platforms, web and mobile applications, MVPs and internal business systems.",
     },
     {
       id: "S2",
-      title: "Backend & Infrastructure",
-      summary: "The services, data layer and cloud foundation that products depend on.",
-      points: [
-        "Backend systems",
-        "APIs & integrations",
-        "Databases",
-        "Scalable architecture",
-        "Cloud infrastructure",
-      ],
+      title: "Backend & Cloud",
+      summary: "Backend systems designed to remain reliable as your product grows.",
+      detail: "APIs and integrations, services, databases, asynchronous processing, scalable architecture and cloud infrastructure.",
     },
     {
       id: "S3",
       title: "Automation & AI",
-      summary: "Business processes turned into reliable software, with AI integrated where it adds value.",
-      points: [
-        "Workflow automation",
-        "Business process automation",
-        "AI integrations",
-        "Intelligent internal systems",
-      ],
+      summary: "Repetitive business processes turned into software, with AI added where it helps.",
+      detail: "Workflow and process automation, AI integrations and intelligent internal tools.",
     },
     {
       id: "S4",
       title: "Blockchain Engineering",
-      summary: "Smart contracts and Web3 infrastructure, built as part of a larger system.",
-      points: [
-        "Smart contracts",
-        "Blockchain integrations",
-        "Web3 infrastructure",
-        "Decentralized applications",
-      ],
+      summary: "On-chain components for products that need them, integrated with the rest of your system.",
+      detail: "Smart contracts, blockchain integrations, Web3 infrastructure and decentralized applications.",
     },
   ],
 } as const;
 
+export type Project = {
+  id: string;
+  name: string;
+  category: string;
+  status: string;
+  context: string;
+  solution: string;
+  highlight: string;
+  demonstrates: string;
+  technology: string[];
+  link?: { href: string; label: string };
+};
+
+export const WORK = {
+  title: "Selected work",
+  lede: "Two products Astreus is building in-house, both currently in development.",
+  projects: [
+    {
+      id: "jurisense",
+      name: "JuriSense",
+      category: "Internal product · Legal technology",
+      status: "In development",
+      context: "Handling judicial processes involves repetitive manual work that is slow and hard to track.",
+      solution: "A system that automates judicial process workflows.",
+      highlight:
+        "A backend built around asynchronous processing: FastAPI services, RabbitMQ queues and Redis, with PostgreSQL and MongoDB for data, running in Docker on GCP.",
+      demonstrates: "Workflow automation and asynchronous backend systems.",
+      technology: ["React", "FastAPI", "RabbitMQ", "Redis", "PostgreSQL", "MongoDB", "Docker", "GCP"],
+      link: { href: "https://jurisense-frontend-36pu.onrender.com/", label: "Open the application" },
+    },
+    {
+      id: "zettadata",
+      name: "ZettaData",
+      category: "Internal product · Retail analytics",
+      status: "In development",
+      context: "Small and mid-size retailers hold valuable fiscal data in NF-e documents but have no practical way to use it.",
+      solution: "A business intelligence platform that turns NF-e data into actionable strategic insight.",
+      highlight:
+        "A data pipeline on Kafka with Java and Spring Boot services, PostgreSQL and Redis for storage and caching, and a React front end, containerized with Docker.",
+      demonstrates: "Data-intensive product engineering, from ingestion to analytics.",
+      technology: ["React", "Java", "Spring Boot", "Kafka", "PostgreSQL", "Redis", "Docker"],
+    },
+  ] satisfies Project[],
+};
+
 export const EXPERTISE = {
-  eyebrow: "Expertise",
-  title: "Engineering depth across the stack",
-  lede: "The technologies we use in production work, grouped by the problem they solve.",
+  title: "Technology, chosen deliberately",
+  lede: "We pick tools for the problem in front of us. These are the ones we work with most.",
   groups: [
     {
-      label: "Frontend",
-      focus: "Fast, accessible interfaces for complex products.",
-      tech: ["TypeScript", "React", "Next.js", "Tailwind CSS"],
+      label: "Interfaces",
+      focus: "Fast, accessible web and mobile interfaces.",
+      tech: ["TypeScript", "React", "Next.js", "Tailwind CSS", "Flutter", "React Native"],
     },
     {
-      label: "Backend",
-      focus: "Services and APIs designed for correctness and scale.",
-      tech: ["Python", "FastAPI", "Django", "Node.js", "Express", "Go", "Java", "Spring Boot"],
+      label: "Systems",
+      focus: "Backends, APIs and automation, including AI integrations.",
+      tech: ["Python", "FastAPI", "Django", "Node.js", "Go", "Java", "Spring Boot"],
     },
     {
-      label: "Data & Messaging",
-      focus: "Storage and event pipelines matched to the workload.",
+      label: "Data",
+      focus: "Storage, caching and messaging matched to the workload.",
       tech: ["PostgreSQL", "MongoDB", "Redis", "RabbitMQ", "Kafka", "Supabase"],
     },
     {
-      label: "Cloud & DevOps",
+      label: "Infrastructure",
       focus: "Reproducible environments and automated delivery.",
       tech: ["Docker", "Terraform", "Linux", "CI/CD", "GCP", "AWS"],
     },
@@ -130,149 +165,66 @@ export const EXPERTISE = {
       focus: "On-chain programs and the infrastructure around them.",
       tech: ["Solana", "Rust"],
     },
-    {
-      label: "Automation & AI",
-      focus: "Queue-driven workflows and AI services wired into products.",
-      tech: ["Workflow automation", "Message queues", "API integrations", "AI service integration"],
-    },
   ],
 } as const;
 
-export type Project = {
-  id: string;
-  name: string;
-  industry: string;
-  status: string;
-  summary: string;
-  services: string[];
-  challenge: string;
-  solution: string;
-  engineering: string;
-  outcome: string;
-  link?: { href: string; label: string };
-  /** Technology grouped by architectural layer. */
-  layers: ReadonlyArray<{ layer: string; tech: string[] }>;
-};
-
-export const WORK = {
-  eyebrow: "Work",
-  title: "Selected projects",
-  lede: "Products we are building as Astraeus. Both are in active development.",
-  projects: [
-    {
-      id: "PRJ-01",
-      name: "JuriSense",
-      industry: "Legal technology",
-      status: "In development",
-      summary: "A system that automates judicial process workflows.",
-      services: ["Product Engineering", "Backend & Infrastructure", "Automation"],
-      challenge: "Handling judicial processes involves repetitive manual work that is slow and hard to track.",
-      solution: "A platform that automates judicial process handling end to end.",
-      engineering:
-        "FastAPI services with RabbitMQ and Redis for asynchronous work, PostgreSQL and MongoDB for data, running in Docker on GCP. Built with a four-person team.",
-      outcome: "In active development. Results will be reported after launch.",
-      link: { href: "https://jurisense-frontend-36pu.onrender.com/", label: "Open the application" },
-      layers: [
-        { layer: "Client", tech: ["React"] },
-        { layer: "Services", tech: ["FastAPI"] },
-        { layer: "Messaging", tech: ["RabbitMQ", "Redis"] },
-        { layer: "Data", tech: ["PostgreSQL", "MongoDB"] },
-        { layer: "Infrastructure", tech: ["Docker", "GCP"] },
-      ],
-    },
-    {
-      id: "PRJ-02",
-      name: "ZettaData",
-      industry: "Retail analytics",
-      status: "In development",
-      summary: "A business intelligence platform built on NF-e fiscal data.",
-      services: ["Product Engineering", "Backend & Infrastructure"],
-      challenge: "Small and mid-size retailers hold rich fiscal data in NF-e documents but have no practical way to use it.",
-      solution: "A BI platform that turns NF-e data into actionable strategic insight.",
-      engineering:
-        "Java and Spring Boot services with Kafka for data pipelines, PostgreSQL and Redis for storage and caching, a React front end, all containerized with Docker.",
-      outcome: "In active development. Results will be reported after launch.",
-      layers: [
-        { layer: "Client", tech: ["React"] },
-        { layer: "Services", tech: ["Java", "Spring Boot"] },
-        { layer: "Messaging", tech: ["Kafka"] },
-        { layer: "Data", tech: ["PostgreSQL", "Redis"] },
-        { layer: "Infrastructure", tech: ["Docker"] },
-      ],
-    },
-  ] satisfies Project[],
-};
+export const PROCESS = {
+  title: "How an engagement works",
+  lede: "Six stages, from the first conversation to a product that keeps improving.",
+  steps: [
+    { title: "Discovery", text: "Understand the business, product and constraints." },
+    { title: "Product & Architecture", text: "Define scope, experience and technical foundations." },
+    { title: "Engineering", text: "Build incrementally with continuous validation." },
+    { title: "Quality", text: "Test functionality, performance, security and usability." },
+    { title: "Launch", text: "Deploy the product and production infrastructure." },
+    { title: "Evolution", text: "Maintain, measure and improve." },
+  ],
+} as const;
 
 export const COMPANY = {
-  eyebrow: "Company",
   title: "A software engineering company",
   statement:
-    "Astraeus is a software engineering company focused on designing and building digital products and systems for modern businesses.",
+    "Astreus is a software engineering company focused on building digital products and systems designed to evolve.",
   detail:
-    "We treat software as long-lived infrastructure: it has to be understood by the people who run it, change safely, and keep working as the business grows.",
+    "We combine product thinking, software architecture and modern engineering to take products from idea to production, and keep them healthy afterwards.",
   principles: [
     {
-      title: "Engineering-first",
-      text: "Decisions start from technical requirements and constraints, not from trends.",
+      title: "Architecture before code",
+      text: "We settle structure, data and boundaries early, so the system can grow without rewrites.",
     },
     {
-      title: "Scalable architecture",
-      text: "Systems are structured to grow in load and scope without being rewritten.",
+      title: "Security by design",
+      text: "Access control, data handling and dependencies are considered from the first design, not added at the end.",
+    },
+    {
+      title: "Built to be maintained",
+      text: "Readable code, tests and documentation keep the system cheap to change for whoever owns it next.",
     },
     {
       title: "Product thinking",
       text: "We build for the users and the business outcome, not only for the specification.",
     },
-    {
-      title: "Security by design",
-      text: "Access control, data handling and dependencies are considered from the first design.",
-    },
-    {
-      title: "Proven technology",
-      text: "We choose tools with mature ecosystems and use newer ones where they earn their place.",
-    },
-    {
-      title: "Long-term maintainability",
-      text: "Readable code, tests and documentation so the system stays cheap to change.",
-    },
-  ],
-} as const;
-
-export const PROCESS = {
-  eyebrow: "Process",
-  title: "How we work",
-  lede: "A clear sequence from first conversation to production and beyond.",
-  steps: [
-    { title: "Discovery", text: "Understand the business, users and technical requirements." },
-    { title: "Architecture", text: "Define the product architecture and engineering strategy." },
-    { title: "Build", text: "Design and develop the system iteratively." },
-    { title: "Validate", text: "Test functionality, usability, security and performance." },
-    { title: "Launch", text: "Deploy and prepare production infrastructure." },
-    { title: "Evolve", text: "Maintain, monitor and continuously improve the product." },
   ],
 } as const;
 
 export const CONTACT = {
-  eyebrow: "Contact",
-  title: "Have a product or system to build?",
-  lede: "Tell us what you're working on. We'll reply by email to discuss scope and next steps.",
-  projectTypes: [
-    "Product / SaaS platform",
-    "Web application",
-    "Backend, API or integrations",
-    "Automation or AI",
+  title: "Have a product to build?",
+  lede: "Tell us about it. We reply by email to discuss scope and next steps.",
+  needs: [
+    "Software product",
+    "Web platform",
+    "Mobile app",
+    "Backend / infrastructure",
+    "Automation / AI",
     "Blockchain",
     "Other",
   ],
+  stages: ["Idea", "Planning", "Existing product", "Scaling / redesign"],
 } as const;
 
 export const FOOTER = {
   tagline: "Software engineering company.",
   columns: [
-    {
-      title: "Services",
-      links: SERVICES.items.map((s) => ({ label: s.title, href: "#services" })),
-    },
     {
       title: "Company",
       links: [
@@ -280,6 +232,10 @@ export const FOOTER = {
         { label: "Expertise", href: "#expertise" },
         { label: "Process", href: "#process" },
       ],
+    },
+    {
+      title: "Services",
+      links: SERVICES.items.map((s) => ({ label: s.title, href: "#services" })),
     },
     {
       title: "Work",

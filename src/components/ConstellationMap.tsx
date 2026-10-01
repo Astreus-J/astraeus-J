@@ -23,9 +23,9 @@ function edgePath(a: string, b: string, bend = 0) {
 }
 
 /**
- * Astraeus Constellation System. The five stages — business problem,
+ * Astreus Constellation System. The five stages — business problem,
  * engineering, systems, infrastructure, products — sit on the geometry of the
- * Astraeus mark. Hovering or focusing a node explains that stage.
+ * Astreus mark. Hovering or focusing a node explains that stage.
  */
 export function ConstellationMap({ className }: { className?: string }) {
   const [activeId, setActiveId] = useState<string>("N1");
@@ -33,7 +33,7 @@ export function ConstellationMap({ className }: { className?: string }) {
 
   return (
     <>
-      <figure className={cn("hidden sm:block", className)} aria-label="Astraeus connects business problems to engineering, systems, infrastructure and products.">
+      <figure className={cn("hidden sm:block", className)} aria-label="Astreus connects business problems to engineering, systems, infrastructure and products.">
         <div className="relative aspect-square w-full">
           <svg viewBox="0 0 100 100" className="absolute inset-0 h-full w-full" aria-hidden>
             {STAGE_EDGES.map(([a, b, bend], i) => {
@@ -46,9 +46,9 @@ export function ConstellationMap({ className }: { className?: string }) {
                   pathLength={1}
                   className="draw"
                   style={{ ["--d" as string]: `${300 + i * 160}ms`, transition: "stroke-opacity .25s, stroke .25s" }}
-                  stroke={lit ? "hsl(var(--brand-orange))" : bend ? "hsl(var(--brand-blue-light))" : "hsl(0 0% 100%)"}
-                  strokeOpacity={lit ? 0.9 : bend ? 0.7 : 0.35}
-                  strokeWidth={bend ? 0.9 : 0.6}
+                  stroke={lit ? "hsl(var(--brand-blue-light))" : bend ? "hsl(var(--brand-blue-light))" : "hsl(0 0% 100%)"}
+                  strokeOpacity={lit ? 1 : bend ? 0.55 : 0.3}
+                  strokeWidth={lit ? 1.2 : bend ? 0.9 : 0.6}
                   vectorEffect="non-scaling-stroke"
                 />
               );
@@ -57,8 +57,8 @@ export function ConstellationMap({ className }: { className?: string }) {
               const on = s.id === activeId;
               return (
                 <g key={s.id} className="node-in" style={{ ["--d" as string]: `${i * 140}ms` }}>
-                  <circle cx={s.x} cy={s.y} r={on ? 3.6 : 2.6} fill="hsl(var(--paper))" stroke={on ? "hsl(var(--brand-orange))" : "hsl(0 0% 100%)"} strokeWidth="1" vectorEffect="non-scaling-stroke" style={{ transition: "r .2s" }} />
-                  <circle cx={s.x} cy={s.y} r={on || s.id === "N5" ? 1.4 : 0.9} fill={on || s.id === "N5" ? "hsl(var(--brand-orange))" : "hsl(var(--brand-blue-light))"} />
+                  <circle cx={s.x} cy={s.y} r={on ? 3.6 : 2.6} fill="hsl(var(--paper))" stroke={on ? "hsl(var(--brand-blue-light))" : "hsl(0 0% 100%)"} strokeWidth="1" vectorEffect="non-scaling-stroke" style={{ transition: "r .2s" }} />
+                  <circle cx={s.x} cy={s.y} r={on || s.id === "N5" ? 1.4 : 0.9} fill={s.id === "N5" ? "hsl(var(--brand-orange))" : "hsl(var(--brand-blue-light))"} />
                 </g>
               );
             })}
@@ -86,7 +86,7 @@ export function ConstellationMap({ className }: { className?: string }) {
                 style={{ left: "50%", top: "50%" }}
               >
                 <span className="block text-[0.9375rem] font-medium">{s.label}</span>
-                <span className="meta block text-white/45">
+                <span className="meta block text-white/50">
                   {s.x} / {s.y}
                 </span>
               </span>
@@ -94,27 +94,24 @@ export function ConstellationMap({ className }: { className?: string }) {
           ))}
         </div>
 
-        <figcaption className="mt-6 min-h-[4.5rem] max-w-sm border-l border-brand-orange pl-4" aria-live="polite">
+        <figcaption className="mt-6 min-h-[4.5rem] max-w-sm border-l border-brand-blue-light pl-4" aria-live="polite">
           <p className="text-sm font-medium text-white">{active.label}</p>
-          <p className="mt-1 text-sm leading-relaxed text-white/65">{active.text}</p>
+          <p className="mt-1 text-sm leading-relaxed text-white/70">{active.text}</p>
         </figcaption>
       </figure>
 
       <ol className={cn("relative sm:hidden", className)} aria-label="From business problem to product">
         <span className="absolute bottom-3 left-[5px] top-3 w-px bg-white/25" aria-hidden />
         {STAGES.map((s) => (
-          <li key={s.id} className="relative flex gap-4 py-3">
+          <li key={s.id} className="relative flex items-center gap-4 py-2.5">
             <span
               className={cn(
-                "relative z-10 mt-1.5 h-[11px] w-[11px] shrink-0 rounded-full border border-white bg-paper",
+                "relative z-10 h-[11px] w-[11px] shrink-0 rounded-full border border-white bg-paper",
                 s.id === "N5" && "border-brand-orange bg-brand-orange",
               )}
               aria-hidden
             />
-            <span>
-              <span className="block text-sm font-medium text-white">{s.label}</span>
-              <span className="mt-0.5 block text-sm leading-relaxed text-white/60">{s.text}</span>
-            </span>
+            <span className="text-sm font-medium text-white">{s.label}</span>
           </li>
         ))}
       </ol>

@@ -38,14 +38,14 @@ export function Header() {
       </a>
       <div className="container">
         <nav aria-label="Primary" className="flex h-16 items-center justify-between">
-          <a href="#top" aria-label="Astraeus, back to top" onClick={() => setOpen(false)}>
+          <a href="#top" aria-label="Astreus, back to top" onClick={() => setOpen(false)}>
             <Logo />
           </a>
 
           <ul className="hidden items-center gap-8 md:flex">
             {NAV.filter((n) => n.href !== "#contact").map((n) => (
               <li key={n.href}>
-                <a href={n.href} className="text-sm text-white/70 transition-colors hover:text-white">
+                <a href={n.href} className="inline-block py-3 text-sm text-white/70 transition-colors hover:text-white">
                   {n.label}
                 </a>
               </li>
@@ -73,15 +73,14 @@ export function Header() {
       {open && (
         <div id="mobile-nav" className="border-t border-border bg-paper md:hidden">
           <ul className="container flex flex-col py-2">
-            {NAV.map((n, i) => (
+            {NAV.map((n) => (
               <li key={n.href} className="border-b border-border last:border-0">
                 <a
                   href={n.href}
                   onClick={() => setOpen(false)}
-                  className="flex items-center justify-between py-4 text-base text-white"
+                  className="flex items-center py-4 text-base text-white"
                 >
                   {n.label}
-                  <span className="meta text-white/40">{String(i + 1).padStart(2, "0")}</span>
                 </a>
               </li>
             ))}

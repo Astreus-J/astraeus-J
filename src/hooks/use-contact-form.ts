@@ -4,20 +4,22 @@ export interface ContactFormData {
   name: string;
   company: string;
   email: string;
-  projectType: string;
+  need: string;
+  stage: string;
   message: string;
 }
 
 export type ContactFormErrors = Partial<Record<keyof ContactFormData, string>>;
 
-const EMPTY: ContactFormData = { name: "", company: "", email: "", projectType: "", message: "" };
+const EMPTY: ContactFormData = { name: "", company: "", email: "", need: "", stage: "", message: "" };
 
 const validators: Record<keyof ContactFormData, (value: string) => string | undefined> = {
   name: (v) => (v.trim().length < 2 ? "Enter your name." : undefined),
   company: () => undefined,
   email: (v) => (/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v.trim()) ? undefined : "Enter a valid email address."),
-  projectType: (v) => (v ? undefined : "Select a project type."),
-  message: (v) => (v.trim().length < 10 ? "Describe your project in at least 10 characters." : undefined),
+  need: (v) => (v ? undefined : "Select what you need."),
+  stage: () => undefined,
+  message: (v) => (v.trim().length < 10 ? "Tell us a little more (at least 10 characters)." : undefined),
 };
 
 export const useContactForm = () => {
