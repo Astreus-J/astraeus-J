@@ -35,11 +35,11 @@ export const HERO = {
  * Astraeus mark: base-left, left edge, apex, right edge, base-right.
  */
 export const STAGES = [
-  { id: "N1", label: "Business problem", x: 14, y: 80, align: "below" },
-  { id: "N2", label: "Engineering", x: 32, y: 48, align: "left" },
-  { id: "N3", label: "Systems", x: 50, y: 16, align: "above" },
-  { id: "N4", label: "Infrastructure", x: 68, y: 48, align: "right" },
-  { id: "N5", label: "Products", x: 86, y: 80, align: "below" },
+  { id: "N1", label: "Business problem", x: 14, y: 80, align: "below", text: "We start from the operation: who uses the system, what it must do and what constrains it." },
+  { id: "N2", label: "Engineering", x: 32, y: 48, align: "left", text: "Requirements become an architecture, a technology choice and a delivery plan." },
+  { id: "N3", label: "Systems", x: 50, y: 16, align: "above", text: "Services, data and integrations built as parts of one coherent system." },
+  { id: "N4", label: "Infrastructure", x: 68, y: 48, align: "right", text: "Cloud environments, pipelines and monitoring that keep the system running." },
+  { id: "N5", label: "Products", x: 86, y: 80, align: "below", text: "Software the business can ship, operate and keep improving." },
 ] as const;
 
 /** [from, to, bend]: bend curves the connection away from a straight line. */

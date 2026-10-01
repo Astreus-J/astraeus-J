@@ -1,5 +1,6 @@
 import { useRef, useState, type FormEvent } from "react";
 import { Loader2 } from "lucide-react";
+import { MarkWatermark } from "@/components/MarkWatermark";
 import { SectionHeader } from "@/components/SectionHeader";
 import { CONTACT, SITE } from "@/content/site";
 import { useContactForm, type ContactFormData } from "@/hooks/use-contact-form";
@@ -121,6 +122,7 @@ export function ContactSection() {
 
   return (
     <section id="contact" aria-labelledby="contact-title" className="relative overflow-hidden bg-graphite py-20 text-white sm:py-28">
+      <MarkWatermark className="-bottom-24 -right-24 h-[34rem] w-[34rem] sm:h-[44rem] sm:w-[44rem]" />
       <div className="container relative grid gap-14 lg:grid-cols-12 lg:gap-16">
         <div className="lg:col-span-5">
           <SectionHeader index="06" eyebrow={CONTACT.eyebrow} title={CONTACT.title} lede={CONTACT.lede} />

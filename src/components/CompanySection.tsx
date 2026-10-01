@@ -1,10 +1,12 @@
+import { MarkWatermark } from "@/components/MarkWatermark";
 import { SectionHeader } from "@/components/SectionHeader";
 import { COMPANY } from "@/content/site";
 
 export function CompanySection() {
   return (
-    <section id="company" aria-labelledby="company-title" className="border-t border-border bg-graphite py-20 sm:py-28">
-      <div className="container">
+    <section id="company" aria-labelledby="company-title" className="relative overflow-hidden border-t border-border bg-graphite py-20 sm:py-28">
+      <MarkWatermark className="-right-32 -top-32 h-[40rem] w-[40rem]" />
+      <div className="container relative">
         <SectionHeader index="04" eyebrow={COMPANY.eyebrow} title={COMPANY.title} />
 
         <div className="reveal mt-10 grid gap-8 lg:grid-cols-12">
