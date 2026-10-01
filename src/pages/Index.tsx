@@ -1,24 +1,26 @@
 import { Header } from "@/components/Header";
 import { HeroSection } from "@/components/HeroSection";
-import { AboutSection } from "@/components/AboutSection";
 import { ServicesSection } from "@/components/ServicesSection";
-import { TechnologiesSection } from "@/components/TechnologiesSection";
-import { DifferentialsSection } from "@/components/DifferentialsSection";
-import { PortfolioSection } from "@/components/PortfolioSection";
+import { ExpertiseSection } from "@/components/ExpertiseSection";
+import { WorkSection } from "@/components/WorkSection";
+import { CompanySection } from "@/components/CompanySection";
+import { ProcessSection } from "@/components/ProcessSection";
 import { ContactSection } from "@/components/ContactSection";
 import { Footer } from "@/components/Footer";
+import { useReveal } from "@/hooks/use-reveal";
 
 const Index = () => {
+  useReveal();
   return (
     <div className="min-h-screen bg-background">
       <Header />
-      <main>
+      <main id="main">
         <HeroSection />
-        <AboutSection />
         <ServicesSection />
-        <TechnologiesSection />
-        <DifferentialsSection />
-        <PortfolioSection />
+        <ExpertiseSection />
+        <WorkSection />
+        <CompanySection />
+        <ProcessSection />
         <ContactSection />
       </main>
       <Footer />

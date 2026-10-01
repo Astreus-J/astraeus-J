@@ -1,129 +1,93 @@
-import { useState, useEffect } from "react";
-import { motion } from "framer-motion";
+import { useEffect, useState } from "react";
 import { Menu, X } from "lucide-react";
-import { Button } from "@/components/ui/button";
-import logo from "@/assets/ogo-astraeus.png";
-
-const navLinks = [
-  { name: "Início", href: "#hero" },
-  { name: "Sobre", href: "#sobre" },
-  { name: "Serviços", href: "#servicos" },
-  { name: "Tecnologias", href: "#tecnologias" },
-  { name: "Portfólio", href: "#portfolio" },
-  { name: "Contato", href: "#contato" },
-];
+import { Logo } from "@/components/Logo";
+import { ButtonLink } from "@/components/ButtonLink";
+import { NAV } from "@/content/site";
+import { cn } from "@/lib/utils";
 
 export function Header() {
-  const [isScrolled, setIsScrolled] = useState(false);
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
+  const [open, setOpen] = useState(false);
 
   useEffect(() => {
-    const handleScroll = () => {
-      setIsScrolled(window.scrollY > 50);
-    };
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
+    const onScroll = () => setScrolled(window.scrollY > 8);
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
-  const scrollToSection = (href: string) => {
-    setIsMobileMenuOpen(false);
-    const element = document.querySelector(href);
-    element?.scrollIntoView({ behavior: "smooth" });
-  };
+  useEffect(() => {
+    if (!open) return;
+    const onKey = (e: KeyboardEvent) => e.key === "Escape" && setOpen(false);
+    document.addEventListener("keydown", onKey);
+    return () => document.removeEventListener("keydown", onKey);
+  }, [open]);
 
   return (
-    <motion.header
-      initial={{ y: -100 }}
-      animate={{ y: 0 }}
-      transition={{ duration: 0.5 }}
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        isScrolled ? "glass-effect shadow-lg" : "bg-transparent"
-      }`}
+    <header
+      className={cn(
+        "fixed inset-x-0 top-0 z-50 transition-colors",
+        scrolled || open ? "border-b border-border bg-paper/95 backdrop-blur-sm" : "border-b border-transparent",
+      )}
     >
-      <div className="container mx-auto px-4">
-        <nav className="flex items-center justify-between h-20">
-          {/* Logo */}
-          <a
-            href="#hero"
-            onClick={(e) => {
-              e.preventDefault();
-              scrollToSection("#hero");
-            }}
-            className="flex items-center gap-3"
-          >
-            <img src={logo} alt=" DEV" className="h-10 w-10 rounded-lg object-cover" />
-            <span className="font-display font-bold text-xl text-secondary">
-              ASTREUS <span className="text-primary">DEV</span>
-            </span>
+      <a
+        href="#main"
+        className="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:rounded focus:bg-white focus:px-3 focus:py-2 focus:text-sm focus:text-ink"
+      >
+        Skip to content
+      </a>
+      <div className="container">
+        <nav aria-label="Primary" className="flex h-16 items-center justify-between">
+          <a href="#top" aria-label="Astraeus, back to top" onClick={() => setOpen(false)}>
+            <Logo />
           </a>
 
-          {/* Desktop Navigation */}
-          <div className="hidden lg:flex items-center gap-8">
-            {navLinks.map((link) => (
-              <a
-                key={link.name}
-                href={link.href}
-                onClick={(e) => {
-                  e.preventDefault();
-                  scrollToSection(link.href);
-                }}
-                className="text-sm font-medium text-muted-foreground hover:text-primary transition-colors duration-200"
-              >
-                {link.name}
-              </a>
-            ))}
-            <Button
-              variant="hero"
-              size="sm"
-              onClick={() => scrollToSection("#contato")}
-            >
-              Solicitar Orçamento
-            </Button>
-          </div>
-
-          {/* Mobile Menu Button */}
-          <button
-            className="lg:hidden p-2 text-foreground"
-            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-            aria-label="Toggle menu"
-          >
-            {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
-          </button>
-        </nav>
-
-        {/* Mobile Menu */}
-        {isMobileMenuOpen && (
-          <motion.div
-            initial={{ opacity: 0, y: -20 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -20 }}
-            className="lg:hidden glass-effect rounded-xl p-6 mb-4"
-          >
-            <div className="flex flex-col gap-4">
-              {navLinks.map((link) => (
-                <a
-                  key={link.name}
-                  href={link.href}
-                  onClick={(e) => {
-                    e.preventDefault();
-                    scrollToSection(link.href);
-                  }}
-                  className="text-base font-medium text-foreground hover:text-primary transition-colors py-2"
-                >
-                  {link.name}
+          <ul className="hidden items-center gap-8 md:flex">
+            {NAV.filter((n) => n.href !== "#contact").map((n) => (
+              <li key={n.href}>
+                <a href={n.href} className="text-sm text-ink/70 transition-colors hover:text-ink">
+                  {n.label}
                 </a>
-              ))}
-              <Button
-                variant="hero"
-                className="mt-2"
-                onClick={() => scrollToSection("#contato")}
-              >
-                Solicitar Orçamento
-              </Button>
-            </div>
-          </motion.div>
-        )}
+              </li>
+            ))}
+          </ul>
+
+          <div className="flex items-center gap-2">
+            <ButtonLink href="#contact" className="hidden h-9 px-4 md:inline-flex">
+              Start a project
+            </ButtonLink>
+            <button
+              type="button"
+              className="inline-flex h-10 w-10 items-center justify-center rounded-md border border-border md:hidden"
+              aria-expanded={open}
+              aria-controls="mobile-nav"
+              aria-label={open ? "Close menu" : "Open menu"}
+              onClick={() => setOpen((v) => !v)}
+            >
+              {open ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
+            </button>
+          </div>
+        </nav>
       </div>
-    </motion.header>
+
+      {open && (
+        <div id="mobile-nav" className="border-t border-border bg-paper md:hidden">
+          <ul className="container flex flex-col py-2">
+            {NAV.map((n, i) => (
+              <li key={n.href} className="border-b border-border last:border-0">
+                <a
+                  href={n.href}
+                  onClick={() => setOpen(false)}
+                  className="flex items-center justify-between py-4 text-base text-ink"
+                >
+                  {n.label}
+                  <span className="meta text-ink/40">{String(i + 1).padStart(2, "0")}</span>
+                </a>
+              </li>
+            ))}
+          </ul>
+        </div>
+      )}
+    </header>
   );
 }

@@ -21,8 +21,6 @@ export default defineConfig({
       output: {
         manualChunks: {
           vendor: ["react", "react-dom", "react-router-dom"],
-          motion: ["framer-motion"],
-          ui: ["@radix-ui/react-tooltip", "@radix-ui/react-dialog", "@radix-ui/react-dropdown-menu"],
         },
       },
     },

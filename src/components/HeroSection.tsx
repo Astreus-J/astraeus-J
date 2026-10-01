@@ -1,124 +1,51 @@
-import { motion } from "framer-motion";
-import { ArrowRight, Code2, Zap } from "lucide-react";
-import { Button } from "@/components/ui/button";
+import { ArrowRight } from "lucide-react";
+import { ButtonLink } from "@/components/ButtonLink";
+import { ConstellationMap } from "@/components/ConstellationMap";
+import { HERO, SERVICES } from "@/content/site";
 
 export function HeroSection() {
-  const scrollToSection = (href: string) => {
-    const element = document.querySelector(href);
-    element?.scrollIntoView({ behavior: "smooth" });
-  };
-
   return (
-    <section
-      id="hero"
-      className="relative min-h-screen flex items-center justify-center pt-20 overflow-hidden"
-    >
-      {/* Background decorations */}
-      <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-primary/10 rounded-full blur-3xl" />
-        <div className="absolute bottom-1/4 right-1/4 w-80 h-80 bg-secondary/10 rounded-full blur-3xl" />
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-primary/5 rounded-full blur-3xl" />
-      </div>
-
-      {/* Grid pattern */}
-      <div 
-        className="absolute inset-0 opacity-[0.03]"
-        style={{
-          backgroundImage: `linear-gradient(hsl(var(--secondary)) 1px, transparent 1px), linear-gradient(90deg, hsl(var(--secondary)) 1px, transparent 1px)`,
-          backgroundSize: '60px 60px'
-        }}
-      />
-
-      <div className="container mx-auto px-4 relative z-10">
-        <div className="max-w-4xl mx-auto text-center">
-          {/* Badge */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5 }}
-            className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-accent border border-primary/20 mb-8"
-          >
-            <Zap className="w-4 h-4 text-primary" />
-            <span className="text-sm font-medium text-accent-foreground">
-              Soluções digitais sob medida
-            </span>
-          </motion.div>
-
-          {/* Main heading */}
-          <motion.h1
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.1 }}
-            className="font-display text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold mb-6 leading-tight"
-          >
-            Transformamos ideias em{" "}
-            <span className="gradient-text">soluções digitais</span>{" "}
-            escaláveis
-          </motion.h1>
-
-          {/* Subtitle */}
-          <motion.p
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.2 }}
-            className="text-lg sm:text-xl text-muted-foreground mb-10 max-w-2xl mx-auto"
-          >
-            Desenvolvemos software personalizado com código limpo, performance
-            otimizada e segurança. Do conceito ao deploy, cuidamos de cada detalhe
-            do seu projeto.
-          </motion.p>
-
-          {/* CTA Buttons */}
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.3 }}
-            className="flex flex-col sm:flex-row items-center justify-center gap-4"
-          >
-            <Button
-              variant="hero"
-              size="lg"
-              onClick={() => scrollToSection("#contato")}
-              className="w-full sm:w-auto"
+    <section id="top" aria-labelledby="hero-title" className="relative overflow-hidden pt-28 sm:pt-36">
+      <div className="container">
+        <div className="grid items-center gap-12 lg:grid-cols-12 lg:gap-8">
+          <div className="lg:col-span-7">
+            <p className="meta flex items-center gap-3 text-ink/60">
+              <span className="node node-fill text-brand-orange-ink" aria-hidden />
+              {HERO.eyebrow}
+            </p>
+            <h1
+              id="hero-title"
+              className="mt-6 max-w-[16ch] text-[2.5rem] font-semibold leading-[1.04] text-ink sm:text-5xl lg:text-[3.5rem]"
             >
-              Solicitar Orçamento
-              <ArrowRight className="w-5 h-5" />
-            </Button>
-            <Button
-              variant="heroOutline"
-              size="lg"
-              onClick={() => scrollToSection("#servicos")}
-              className="w-full sm:w-auto"
-            >
-              <Code2 className="w-5 h-5" />
-              Ver Serviços
-            </Button>
-          </motion.div>
-
-          {/* Stats */}
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.4 }}
-            className="mt-16 pt-16 border-t border-border"
-          >
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
-              {[
-                { value: "50+", label: "Projetos Entregues" },
-                { value: "100%", label: "Código Documentado" },
-                { value: "24/7", label: "Suporte Técnico" },
-                { value: "5★", label: "Avaliação Média" },
-              ].map((stat, index) => (
-                <div key={index} className="text-center">
-                  <div className="font-display text-3xl sm:text-4xl font-bold text-primary mb-2">
-                    {stat.value}
-                  </div>
-                  <div className="text-sm text-muted-foreground">{stat.label}</div>
-                </div>
-              ))}
+              {HERO.title}
+            </h1>
+            <p className="mt-6 max-w-xl text-base leading-relaxed text-muted-foreground sm:text-lg">
+              {HERO.lede}
+            </p>
+            <div className="mt-9 flex flex-col gap-3 sm:flex-row">
+              <ButtonLink href={HERO.primary.href}>
+                {HERO.primary.label}
+                <ArrowRight className="h-4 w-4" aria-hidden />
+              </ButtonLink>
+              <ButtonLink href={HERO.secondary.href} variant="secondary">
+                {HERO.secondary.label}
+              </ButtonLink>
             </div>
-          </motion.div>
+          </div>
+
+          <div className="mx-auto w-full max-w-[520px] lg:col-span-5 lg:max-w-none">
+            <ConstellationMap />
+          </div>
         </div>
+
+        <ul className="mt-16 hidden border-t border-border sm:grid sm:grid-cols-2 lg:grid-cols-4">
+          {SERVICES.items.map((s, i) => (
+            <li key={s.id} className="border-b border-border py-4 sm:border-b-0 sm:pr-6 lg:py-5">
+              <span className="meta text-ink/40">{String(i + 1).padStart(2, "0")}</span>
+              <p className="mt-1 text-sm font-medium text-ink">{s.title}</p>
+            </li>
+          ))}
+        </ul>
       </div>
     </section>
   );
