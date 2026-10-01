@@ -14,8 +14,8 @@ export default {
     },
     extend: {
       fontFamily: {
-        sans: ["Geist", "ui-sans-serif", "system-ui", "sans-serif"],
-        mono: ["Geist Mono", "ui-monospace", "SFMono-Regular", "monospace"],
+        sans: ["Schibsted Grotesk", "ui-sans-serif", "system-ui", "sans-serif"],
+        mono: ["IBM Plex Mono", "ui-monospace", "SFMono-Regular", "monospace"],
       },
       colors: {
         ink: "hsl(var(--ink))",
@@ -24,6 +24,7 @@ export default {
           soft: "hsl(var(--graphite-soft))",
         },
         paper: "hsl(var(--paper))",
+        deep: "hsl(var(--brand-blue-deep))",
         brand: {
           blue: "hsl(var(--brand-blue))",
           "blue-light": "hsl(var(--brand-blue-light))",

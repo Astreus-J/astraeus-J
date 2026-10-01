@@ -32,7 +32,7 @@ export function Header() {
     >
       <a
         href="#main"
-        className="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:rounded focus:bg-white focus:px-3 focus:py-2 focus:text-sm focus:text-ink"
+        className="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:rounded focus:bg-graphite focus:px-3 focus:py-2 focus:text-sm focus:text-white"
       >
         Skip to content
       </a>
@@ -45,7 +45,7 @@ export function Header() {
           <ul className="hidden items-center gap-8 md:flex">
             {NAV.filter((n) => n.href !== "#contact").map((n) => (
               <li key={n.href}>
-                <a href={n.href} className="text-sm text-ink/70 transition-colors hover:text-ink">
+                <a href={n.href} className="text-sm text-white/70 transition-colors hover:text-white">
                   {n.label}
                 </a>
               </li>
@@ -58,7 +58,7 @@ export function Header() {
             </ButtonLink>
             <button
               type="button"
-              className="inline-flex h-10 w-10 items-center justify-center rounded-md border border-border md:hidden"
+              className="inline-flex h-10 w-10 items-center justify-center rounded-sm border border-border md:hidden"
               aria-expanded={open}
               aria-controls="mobile-nav"
               aria-label={open ? "Close menu" : "Open menu"}
@@ -78,10 +78,10 @@ export function Header() {
                 <a
                   href={n.href}
                   onClick={() => setOpen(false)}
-                  className="flex items-center justify-between py-4 text-base text-ink"
+                  className="flex items-center justify-between py-4 text-base text-white"
                 >
                   {n.label}
-                  <span className="meta text-ink/40">{String(i + 1).padStart(2, "0")}</span>
+                  <span className="meta text-white/40">{String(i + 1).padStart(2, "0")}</span>
                 </a>
               </li>
             ))}

@@ -30,22 +30,26 @@ export const HERO = {
   secondary: { label: "View our work", href: "#work" },
 } as const;
 
-/** Stages of the Constellation System shown in the hero. */
+/**
+ * Stages of the Constellation System. Node positions follow the geometry of the
+ * Astraeus mark: base-left, left edge, apex, right edge, base-right.
+ */
 export const STAGES = [
-  { id: "N1", label: "Business problem", x: 11, y: 22, align: "left" },
-  { id: "N2", label: "Engineering", x: 36, y: 47, align: "below" },
-  { id: "N3", label: "Systems", x: 64, y: 24, align: "above" },
-  { id: "N4", label: "Infrastructure", x: 60, y: 74, align: "below" },
-  { id: "N5", label: "Products", x: 88, y: 50, align: "right" },
+  { id: "N1", label: "Business problem", x: 14, y: 80, align: "below" },
+  { id: "N2", label: "Engineering", x: 32, y: 48, align: "left" },
+  { id: "N3", label: "Systems", x: 50, y: 16, align: "above" },
+  { id: "N4", label: "Infrastructure", x: 68, y: 48, align: "right" },
+  { id: "N5", label: "Products", x: 86, y: 80, align: "below" },
 ] as const;
 
-export const STAGE_EDGES: ReadonlyArray<readonly [string, string]> = [
+/** [from, to, bend]: bend curves the connection away from a straight line. */
+export const STAGE_EDGES: ReadonlyArray<readonly [string, string, number?]> = [
   ["N1", "N2"],
   ["N2", "N3"],
-  ["N2", "N4"],
   ["N3", "N4"],
-  ["N3", "N5"],
   ["N4", "N5"],
+  ["N2", "N4", -7],
+  ["N1", "N5", 9],
 ];
 
 export const SERVICES = {

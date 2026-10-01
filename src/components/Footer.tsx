@@ -14,7 +14,7 @@ export function Footer() {
           <nav aria-label="Footer" className="grid grid-cols-2 gap-8 sm:grid-cols-4 lg:col-span-7">
             {FOOTER.columns.map((c) => (
               <div key={c.title}>
-                <h2 className="meta text-white/50">{c.title}</h2>
+                <h2 className="text-sm font-medium text-white/50">{c.title}</h2>
                 <ul className="mt-4 space-y-2.5">
                   {c.links.map((l) => (
                     <li key={l.label}>
@@ -27,7 +27,7 @@ export function Footer() {
               </div>
             ))}
             <div>
-              <h2 className="meta text-white/50">Contact</h2>
+              <h2 className="text-sm font-medium text-white/50">Contact</h2>
               <ul className="mt-4 space-y-2.5">
                 <li>
                   <a href="#contact" className="text-sm text-white/80 transition-colors hover:text-white">
@@ -52,7 +52,7 @@ export function Footer() {
           </nav>
         </div>
 
-        <p className="meta mt-14 border-t border-white/10 pt-6 text-white/40">
+        <p className="mt-14 text-sm border-t border-white/10 pt-6 text-white/45">
           © {new Date().getFullYear()} Astraeus
         </p>
       </div>

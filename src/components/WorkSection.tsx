@@ -2,16 +2,16 @@ import { ArrowUpRight } from "lucide-react";
 import { SectionHeader } from "@/components/SectionHeader";
 import { WORK, type Project } from "@/content/site";
 
-function SystemLayers({ layers }: { layers: Project["layers"] }) {
+function Stack({ layers }: { layers: Project["layers"] }) {
   return (
-    <ol className="relative" aria-label="Technology by layer">
-      <span className="absolute bottom-3 left-[5px] top-3 w-px bg-brand-blue/25" aria-hidden />
+    <ol aria-label="Technology by layer" className="relative">
+      <span className="absolute bottom-3 left-[5px] top-3 w-px bg-brand-blue-light/50" aria-hidden />
       {layers.map((l) => (
         <li key={l.layer} className="relative flex gap-4 py-2.5">
-          <span className="relative z-10 mt-1.5 h-[11px] w-[11px] shrink-0 rounded-full border border-brand-blue bg-white" aria-hidden />
-          <div className="min-w-0">
-            <p className="meta text-ink/50">{l.layer}</p>
-            <p className="mt-0.5 font-mono text-[0.8125rem] text-ink">{l.tech.join("  ·  ")}</p>
+          <span className="relative z-10 mt-1.5 h-[11px] w-[11px] shrink-0 rounded-full border border-brand-blue-light bg-paper" aria-hidden />
+          <div>
+            <p className="text-xs text-white/50">{l.layer}</p>
+            <p className="mt-0.5 font-mono text-[0.875rem] text-white">{l.tech.join("  ·  ")}</p>
           </div>
         </li>
       ))}
@@ -33,66 +33,51 @@ export function WorkSection() {
       <div className="container">
         <SectionHeader index="03" eyebrow={WORK.eyebrow} title={WORK.title} lede={WORK.lede} />
 
-        <div className="mt-14 space-y-8">
+        <div className="mt-14">
           {WORK.projects.map((p) => (
             <article
               key={p.id}
               aria-labelledby={`${p.id}-title`}
-              className="reveal grid overflow-hidden rounded-lg border border-border bg-white lg:grid-cols-12"
+              className="reveal grid gap-10 border-t border-border py-12 lg:grid-cols-12 lg:gap-14"
             >
-              <div className="p-6 sm:p-8 lg:col-span-8 lg:p-10">
-                <div className="flex flex-wrap items-center justify-between gap-3">
-                  <p className="meta text-ink/50">
-                    {p.id} <span aria-hidden>/</span> {p.industry}
-                  </p>
-                  <p className="meta inline-flex items-center gap-2 text-brand-orange-ink">
-                    <span className="node node-fill" aria-hidden />
-                    {p.status}
-                  </p>
-                </div>
-
-                <h3 id={`${p.id}-title`} className="mt-6 text-2xl font-semibold text-ink sm:text-3xl">
+              <div className="lg:col-span-7">
+                <p className="text-sm text-white/55">
+                  {p.id} · {p.industry} ·{" "}
+                  <span className="text-brand-orange">{p.status}</span>
+                </p>
+                <h3 id={`${p.id}-title`} className="mt-4 text-4xl font-semibold text-white sm:text-5xl">
                   {p.name}
                 </h3>
-                <p className="mt-2 text-muted-foreground">{p.summary}</p>
+                <p className="mt-3 text-lg text-white/70">{p.summary}</p>
 
-                <dl className="mt-8 divide-y divide-border border-t border-border">
+                <dl className="mt-8 space-y-5">
                   {facts(p).map(([k, v]) => (
-                    <div key={k} className="grid gap-1 py-4 sm:grid-cols-[8rem_1fr] sm:gap-6">
-                      <dt className="meta pt-0.5 text-ink/50">{k}</dt>
-                      <dd className="text-[0.9375rem] leading-relaxed text-ink">{v}</dd>
+                    <div key={k} className="grid gap-1 sm:grid-cols-[7.5rem_1fr] sm:gap-6">
+                      <dt className="text-sm text-white/50">{k}</dt>
+                      <dd className="text-[0.9375rem] leading-relaxed text-white">{v}</dd>
                     </div>
                   ))}
                 </dl>
 
-                <div className="mt-6 flex flex-wrap items-center justify-between gap-4">
-                  <ul className="flex flex-wrap gap-2" aria-label="Services">
-                    {p.services.map((s) => (
-                      <li key={s} className="rounded border border-border px-2.5 py-1 text-xs text-ink/70">
-                        {s}
-                      </li>
-                    ))}
-                  </ul>
-                  {p.link && (
-                    <a
-                      href={p.link.href}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="inline-flex items-center gap-1.5 text-sm font-medium text-brand-blue underline-offset-4 hover:underline"
-                    >
-                      {p.link.label}
-                      <ArrowUpRight className="h-4 w-4" aria-hidden />
-                      <span className="sr-only">(opens in a new tab)</span>
-                    </a>
-                  )}
-                </div>
+                <p className="mt-7 text-sm text-white/55">{p.services.join("  ·  ")}</p>
+                {p.link && (
+                  <a
+                    href={p.link.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="mt-4 inline-flex items-center gap-1.5 text-sm font-medium text-brand-blue-light underline-offset-4 hover:underline"
+                  >
+                    {p.link.label}
+                    <ArrowUpRight className="h-4 w-4" aria-hidden />
+                    <span className="sr-only">(opens in a new tab)</span>
+                  </a>
+                )}
               </div>
 
-              <div className="relative border-t border-border bg-paper p-6 sm:p-8 lg:col-span-4 lg:border-l lg:border-t-0 lg:p-10">
-                <div className="grid-bg absolute inset-0 opacity-70" aria-hidden />
-                <div className="relative">
-                  <p className="meta mb-4 text-ink/50">Technology</p>
-                  <SystemLayers layers={p.layers} />
+              <div className="lg:col-span-5">
+                <div className="bg-deep p-7 sm:p-9">
+                  <p className="mb-4 text-sm font-medium text-white">Technology</p>
+                  <Stack layers={p.layers} />
                 </div>
               </div>
             </article>

@@ -35,7 +35,7 @@ function allowAttempt(): boolean {
 type Status = { kind: "idle" } | { kind: "sending" } | { kind: "success" } | { kind: "error"; message: string };
 
 const fieldClass =
-  "mt-2 block w-full rounded-md border border-white/20 bg-white/[0.04] px-3.5 py-3 text-[0.9375rem] text-white placeholder:text-white/40 transition-colors hover:border-white/35 focus:border-brand-orange focus:outline-none focus:ring-1 focus:ring-brand-orange aria-[invalid=true]:border-[#ff8a80]";
+  "mt-2 block w-full rounded-sm border border-white/20 bg-white/[0.04] px-3.5 py-3 text-[0.9375rem] text-white placeholder:text-white/40 transition-colors hover:border-white/35 focus:border-brand-orange focus:outline-none focus:ring-1 focus:ring-brand-orange aria-[invalid=true]:border-[#ff8a80]";
 
 function Field({
   id,
@@ -120,14 +120,13 @@ export function ContactSection() {
   };
 
   return (
-    <section id="contact" aria-labelledby="contact-title" className="relative overflow-hidden bg-ink py-20 text-white sm:py-28">
-      <div className="grid-bg grid-fade absolute inset-0 [--grid:rgba(255,255,255,0.04)]" aria-hidden />
+    <section id="contact" aria-labelledby="contact-title" className="relative overflow-hidden bg-graphite py-20 text-white sm:py-28">
       <div className="container relative grid gap-14 lg:grid-cols-12 lg:gap-16">
         <div className="lg:col-span-5">
-          <SectionHeader index="06" eyebrow={CONTACT.eyebrow} title={CONTACT.title} lede={CONTACT.lede} tone="dark" />
+          <SectionHeader index="06" eyebrow={CONTACT.eyebrow} title={CONTACT.title} lede={CONTACT.lede} />
           <dl className="reveal mt-10 space-y-5 border-t border-white/10 pt-6 text-sm">
             <div>
-              <dt className="meta text-white/50">Email</dt>
+              <dt className="text-sm text-white/50">Email</dt>
               <dd className="mt-1">
                 <a href={`mailto:${SITE.email}`} className="text-base text-white underline-offset-4 hover:underline">
                   {SITE.email}
@@ -135,7 +134,7 @@ export function ContactSection() {
               </dd>
             </div>
             <div>
-              <dt className="meta text-white/50">Based in</dt>
+              <dt className="text-sm text-white/50">Based in</dt>
               <dd className="mt-1 text-base text-white">{SITE.location}</dd>
             </div>
           </dl>
@@ -153,7 +152,7 @@ export function ContactSection() {
               <input type="email" autoComplete="email" maxLength={255} {...bind("email")} />
             </Field>
             <Field id="projectType" label="Project type" error={errors.projectType}>
-              <select {...bind("projectType")} className={cn(fieldClass, "appearance-auto [&>option]:text-ink")}>
+              <select {...bind("projectType")} className={cn(fieldClass, "appearance-auto [&>option]:bg-graphite [&>option]:text-white")}>
                 <option value="">Select…</option>
                 {CONTACT.projectTypes.map((t) => (
                   <option key={t} value={t}>
@@ -173,7 +172,7 @@ export function ContactSection() {
             <button
               type="submit"
               disabled={status.kind === "sending"}
-              className="inline-flex h-11 items-center justify-center gap-2 rounded-md bg-brand-orange px-6 text-sm font-medium text-ink transition-colors hover:bg-brand-orange/90 disabled:opacity-60"
+              className="inline-flex h-11 items-center justify-center gap-2 rounded-sm bg-brand-orange px-6 text-sm font-medium text-ink transition-colors hover:bg-brand-orange/90 disabled:opacity-60"
             >
               {status.kind === "sending" && <Loader2 className="h-4 w-4 animate-spin" aria-hidden />}
               {status.kind === "sending" ? "Sending…" : "Start a project"}

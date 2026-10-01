@@ -8,7 +8,7 @@ type LogoProps = {
 };
 
 /** Astraeus wordmark. `tone` describes the background it sits on. */
-export function Logo({ tone = "light", className }: LogoProps) {
+export function Logo({ tone = "dark", className }: LogoProps) {
   return (
     <span className={cn("inline-flex items-center gap-2.5", className)}>
       <img
@@ -21,7 +21,7 @@ export function Logo({ tone = "light", className }: LogoProps) {
       <span
         className={cn(
           "text-[1.0625rem] font-semibold uppercase tracking-[0.16em]",
-          tone === "dark" ? "text-white" : "text-ink",
+          tone === "dark" ? "text-white" : "text-white",
         )}
       >
         Astraeus
