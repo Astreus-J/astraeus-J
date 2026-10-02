@@ -69,7 +69,7 @@ export function Footer() {
           </nav>
         </div>
 
-        <p className="mt-14 border-t border-white/10 pt-6 text-sm text-white/60">© {new Date().getFullYear()} Astreus</p>
+        <p className="mt-14 border-t border-white/10 pt-6 text-sm text-white/60"><span suppressHydrationWarning>© {new Date().getFullYear()} Astreus</span></p>
       </div>
     </footer>
   );

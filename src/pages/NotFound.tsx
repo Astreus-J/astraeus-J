@@ -1,5 +1,4 @@
 import { useEffect } from "react";
-import { Link } from "react-router-dom";
 import { Logo } from "@/components/Logo";
 
 const NotFound = () => {
@@ -18,9 +17,9 @@ const NotFound = () => {
       <p className="text-sm text-white/60">Error 404</p>
       <h1 className="text-3xl font-semibold text-white">Page not found</h1>
       <p className="max-w-sm text-white/70">The page you are looking for doesn't exist or has moved.</p>
-      <Link to="/" className="inline-flex h-11 items-center rounded-sm bg-brand-orange px-5 text-sm font-medium text-ink">
+      <a href="/" className="inline-flex h-11 items-center rounded-sm bg-brand-orange px-5 text-sm font-medium text-ink">
         Back to home
-      </Link>
+      </a>
     </main>
   );
 };

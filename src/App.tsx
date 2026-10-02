@@ -1,14 +1,10 @@
-import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Index from "./pages/Index";
 import NotFound from "./pages/NotFound";
 
-const App = () => (
-  <BrowserRouter>
-    <Routes>
-      <Route path="/" element={<Index />} />
-      <Route path="*" element={<NotFound />} />
-    </Routes>
-  </BrowserRouter>
-);
+// Single-page site: "/" is the home page, anything else is a 404.
+const App = () => {
+  const pathname = typeof window === "undefined" ? "/" : window.location.pathname;
+  return pathname === "/" ? <Index /> : <NotFound />;
+};
 
 export default App;

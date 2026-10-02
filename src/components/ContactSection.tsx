@@ -98,7 +98,7 @@ export function ContactSection() {
     setStatus({ kind: "sending" });
     try {
       const { default: emailjs } = await import("@emailjs/browser");
-      const { name, company, email, need, stage, message } = formData;
+      const { name, company, email, projectType, message } = formData;
       await emailjs.send(
         EMAILJS_CONFIG.SERVICE_ID,
         EMAILJS_CONFIG.TEMPLATE_ID,
@@ -106,15 +106,14 @@ export function ContactSection() {
           nome: name,
           email,
           telefone: "Not provided",
-          assunto: `${need}${company ? ` — ${company}` : ""}`,
-          mensagem: `${message}\n\nCompany: ${company || "Not provided"}\nNeed: ${need}\nStage: ${stage || "Not provided"}`,
+          assunto: `${projectType}${company ? ` — ${company}` : ""}`,
+          mensagem: `${message}\n\nCompany: ${company || "Not provided"}\nProject type: ${projectType}`,
         },
         { publicKey: EMAILJS_CONFIG.PUBLIC_KEY },
       );
       setStatus({ kind: "success" });
       resetForm();
-    } catch (err) {
-      console.error("Contact form error:", err);
+    } catch {
       setStatus({ kind: "error", message: `We couldn't send your message. Please try again or email ${SITE.email}.` });
     }
   };
@@ -151,20 +150,10 @@ export function ContactSection() {
             <Field id="company" label="Company" optional>
               <input type="text" autoComplete="organization" maxLength={100} {...bind("company")} />
             </Field>
-            <Field id="need" label="What do you need?" error={errors.need}>
-              <select required {...bind("need")} className={cn(fieldClass, "appearance-auto")}>
+            <Field id="projectType" label="Project type" error={errors.projectType}>
+              <select required {...bind("projectType")} className={cn(fieldClass, "appearance-auto")}>
                 <option value="">Select…</option>
-                {CONTACT.needs.map((t) => (
-                  <option key={t} value={t}>
-                    {t}
-                  </option>
-                ))}
-              </select>
-            </Field>
-            <Field id="stage" label="Project stage" optional>
-              <select {...bind("stage")} className={cn(fieldClass, "appearance-auto")}>
-                <option value="">Select…</option>
-                {CONTACT.stages.map((t) => (
+                {CONTACT.types.map((t) => (
                   <option key={t} value={t}>
                     {t}
                   </option>

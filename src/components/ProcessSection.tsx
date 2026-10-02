@@ -4,7 +4,7 @@ import { PROCESS } from "@/content/site";
 /** Steps descend along a trajectory line, the same device used in the hero map. */
 export function ProcessSection() {
   return (
-    <section id="process" aria-labelledby="process-title" className="section">
+    <section id="process" aria-labelledby="process-title" className="section bg-graphite">
       <div className="container">
         <SectionHeader id="process-title" title={PROCESS.title} lede={PROCESS.lede} />
 
@@ -23,7 +23,7 @@ export function ProcessSection() {
                 </>
               )}
               <span
-                className={`absolute left-0 top-1.5 h-[11px] w-[11px] rounded-full border border-brand-blue-light bg-paper lg:top-0 lg:mt-[var(--step)] ${
+                className={`absolute left-0 top-1.5 h-[11px] w-[11px] rounded-full border border-brand-blue-light bg-graphite lg:top-0 lg:mt-[var(--step)] ${
                   i === PROCESS.steps.length - 1 ? "bg-brand-blue-light" : ""
                 }`}
                 aria-hidden

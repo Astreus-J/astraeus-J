@@ -2,22 +2,34 @@ import { ArrowUpRight } from "lucide-react";
 import { SectionHeader } from "@/components/SectionHeader";
 import { WORK, type Project } from "@/content/site";
 
+/** Projects grouped by honest ownership (Astreus Products, Client Work, Astreus Labs...). */
+const groups = Object.entries(
+  WORK.projects.reduce<Record<string, Project[]>>((acc, p) => {
+    (acc[p.collection] ??= []).push(p);
+    return acc;
+  }, {}),
+);
+
 const rows = (p: Project) =>
   [
-    ["Context", p.context],
+    ["Problem", p.context],
     ["Solution", p.solution],
     ["Engineering", p.highlight],
-    ["Demonstrates", p.demonstrates],
+    ["Capabilities", p.demonstrates],
   ] as const;
 
 export function WorkSection() {
   return (
-    <section id="work" aria-labelledby="work-title" className="section bg-graphite">
+    <section id="work" aria-labelledby="work-title" className="section">
       <div className="container">
         <SectionHeader id="work-title" title={WORK.title} lede={WORK.lede} />
 
-        <div className="section-body border-b border-white/10">
-          {WORK.projects.map((p) => (
+        <div className="section-body">
+          {groups.map(([collection, projects]) => (
+            <div key={collection} className="mb-12 last:mb-0">
+              {groups.length > 1 && <h3 className="mb-4 text-sm font-medium text-white/60">{collection}</h3>}
+              <div className="border-b border-white/10">
+          {projects.map((p) => (
             <article
               key={p.id}
               aria-labelledby={`${p.id}-title`}
@@ -56,6 +68,9 @@ export function WorkSection() {
                 </div>
               </dl>
             </article>
+          ))}
+              </div>
+            </div>
           ))}
         </div>
       </div>

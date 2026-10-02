@@ -27,15 +27,7 @@ export const HERO = {
   audience: "For companies, startups and organizations that need technology built properly.",
   primary: { label: "Start a project", href: "#contact" },
   secondary: { label: "View our work", href: "#work" },
-  capabilities: [
-    "Custom software",
-    "SaaS platforms",
-    "Web & mobile apps",
-    "APIs & integrations",
-    "Automation & AI",
-    "Cloud infrastructure",
-    "Blockchain",
-  ],
+  capabilities: ["Product engineering", "Web & mobile", "Backend & cloud", "Automation & AI", "Blockchain"],
 } as const;
 
 /**
@@ -62,31 +54,37 @@ export const STAGE_EDGES: ReadonlyArray<readonly [string, string, number?]> = [
 
 export const SERVICES = {
   title: "What we build",
-  lede: "One team across the whole path, from product architecture to production.",
+  lede: "Five capabilities, one engineering approach, from architecture to production.",
   items: [
     {
       id: "S1",
       title: "Product Engineering",
-      summary: "Software products, from the first release to the platform they grow into.",
-      detail: "SaaS platforms, web and mobile applications, MVPs and internal business systems.",
+      summary: "From product architecture to production-ready systems.",
+      detail: "We design and build SaaS platforms, internal systems and digital products around real business requirements.",
     },
     {
       id: "S2",
-      title: "Backend & Cloud",
-      summary: "Backend systems designed to remain reliable as your product grows.",
-      detail: "APIs and integrations, services, databases, asynchronous processing, scalable architecture and cloud infrastructure.",
+      title: "Web & Mobile",
+      summary: "Interfaces and applications designed around usability and maintainable engineering.",
+      detail: "Web applications and mobile apps that are fast, accessible and easy to evolve.",
     },
     {
       id: "S3",
-      title: "Automation & AI",
-      summary: "Repetitive business processes turned into software, with AI added where it helps.",
-      detail: "Workflow and process automation, AI integrations and intelligent internal tools.",
+      title: "Backend & Cloud",
+      summary: "APIs, services, databases and infrastructure designed for reliability and growth.",
+      detail: "Scalable architecture, asynchronous processing and cloud environments that stay dependable as the product grows.",
     },
     {
       id: "S4",
+      title: "Automation & Integrations",
+      summary: "Connect systems, automate workflows and reduce manual business processes.",
+      detail: "Workflow automation, system integrations and AI integrations where they remove real work.",
+    },
+    {
+      id: "S5",
       title: "Blockchain Engineering",
-      summary: "On-chain components for products that need them, integrated with the rest of your system.",
-      detail: "Smart contracts, blockchain integrations, Web3 infrastructure and decentralized applications.",
+      summary: "Smart contracts, on-chain applications and Web2/Web3 integrations, where blockchain provides actual value.",
+      detail: "Smart contracts, blockchain integrations and Web3 infrastructure, connected to the rest of your stack.",
     },
   ],
 } as const;
@@ -94,6 +92,8 @@ export const SERVICES = {
 export type Project = {
   id: string;
   name: string;
+  /** Honest ownership group, e.g. "Astreus Products". Add "Client Work" or "Astreus Labs" only when it applies. */
+  collection: string;
   category: string;
   status: string;
   context: string;
@@ -106,12 +106,13 @@ export type Project = {
 
 export const WORK = {
   title: "Selected work",
-  lede: "Two products Astreus is building in-house, both currently in development.",
+  lede: "Two products Astreus is building in-house. Both are in development.",
   projects: [
     {
       id: "jurisense",
       name: "JuriSense",
-      category: "Internal product · Legal technology",
+      collection: "Astreus Products",
+      category: "Legal technology",
       status: "In development",
       context: "Handling judicial processes involves repetitive manual work that is slow and hard to track.",
       solution: "A system that automates judicial process workflows.",
@@ -124,7 +125,8 @@ export const WORK = {
     {
       id: "zettadata",
       name: "ZettaData",
-      category: "Internal product · Retail analytics",
+      collection: "Astreus Products",
+      category: "Retail analytics",
       status: "In development",
       context: "Small and mid-size retailers hold valuable fiscal data in NF-e documents but have no practical way to use it.",
       solution: "A business intelligence platform that turns NF-e data into actionable strategic insight.",
@@ -169,24 +171,24 @@ export const EXPERTISE = {
 } as const;
 
 export const PROCESS = {
-  title: "How an engagement works",
-  lede: "Six stages, from the first conversation to a product that keeps improving.",
+  title: "How we work",
+  lede: "A clear path from the first conversation to a product that keeps improving.",
   steps: [
-    { title: "Discovery", text: "Understand the business, product and constraints." },
-    { title: "Product & Architecture", text: "Define scope, experience and technical foundations." },
-    { title: "Engineering", text: "Build incrementally with continuous validation." },
-    { title: "Quality", text: "Test functionality, performance, security and usability." },
-    { title: "Launch", text: "Deploy the product and production infrastructure." },
-    { title: "Evolution", text: "Maintain, measure and improve." },
+    { title: "Discovery", text: "We understand the problem, requirements and constraints before defining the solution." },
+    { title: "Architecture", text: "We structure the product, technology and delivery strategy." },
+    { title: "Engineering", text: "We build incrementally with continuous validation." },
+    { title: "Quality", text: "We test functionality, performance, security and usability." },
+    { title: "Launch", text: "We deploy the product and production infrastructure." },
+    { title: "Evolution", text: "We maintain and improve the system after launch." },
   ],
 } as const;
 
 export const COMPANY = {
-  title: "A software engineering company",
+  title: "Built as systems.",
   statement:
-    "Astreus is a software engineering company focused on building digital products and systems designed to evolve.",
+    "Astreus is a software engineering company focused on designing and building digital products, platforms and software systems.",
   detail:
-    "We combine product thinking, software architecture and modern engineering to take products from idea to production, and keep them healthy afterwards.",
+    "A product is more than screens: it is users, interfaces, services, data, infrastructure and integrations. We work across product, architecture and engineering to turn business requirements into maintainable technology.",
   principles: [
     {
       title: "Architecture before code",
@@ -210,20 +212,19 @@ export const COMPANY = {
 export const CONTACT = {
   title: "Have a product to build?",
   lede: "Tell us about it. We reply by email to discuss scope and next steps.",
-  needs: [
+  types: [
     "Software product",
     "Web platform",
-    "Mobile app",
-    "Backend / infrastructure",
-    "Automation / AI",
+    "Mobile application",
+    "Backend / API",
+    "Automation",
     "Blockchain",
     "Other",
   ],
-  stages: ["Idea", "Planning", "Existing product", "Scaling / redesign"],
 } as const;
 
 export const FOOTER = {
-  tagline: "Software engineering company.",
+  tagline: "Built as systems.",
   columns: [
     {
       title: "Company",

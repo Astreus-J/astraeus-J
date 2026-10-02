@@ -29,7 +29,7 @@ function siteMeta(siteUrl: string): Plugin {
   };
 }
 
-export default defineConfig(({ mode }) => {
+export default defineConfig(({ mode, isSsrBuild }) => {
   const env = loadEnv(mode, process.cwd(), "");
   const vercelHost = process.env.VERCEL_PROJECT_PRODUCTION_URL;
   const siteUrl = (env.VITE_SITE_URL || (vercelHost ? `https://${vercelHost}` : "http://localhost:8080")).replace(/\/$/, "");
@@ -48,11 +48,7 @@ export default defineConfig(({ mode }) => {
     },
     build: {
       rollupOptions: {
-        output: {
-          manualChunks: {
-            vendor: ["react", "react-dom", "react-router-dom"],
-          },
-        },
+        output: isSsrBuild ? {} : { manualChunks: { vendor: ["react", "react-dom"] } },
       },
     },
   };
